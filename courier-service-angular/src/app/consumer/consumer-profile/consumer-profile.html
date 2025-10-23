@@ -1,44 +1,43 @@
-<div class="consumer-profile" style="max-width: 500px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px;">
-  <h2 style="text-align: center; margin-bottom: 20px;">Register User</h2>
+<div class="consumer-profile">
+  <h2>Register User</h2>
 
   <form (ngSubmit)="saveUser()" #userForm="ngForm">
-
     <!-- Name -->
-    <div class="form-group" style="margin-bottom: 15px;">
-      <label>Name:</label>
-      <input type="text" [(ngModel)]="name" name="name" required class="form-control" style="width: 100%; padding: 8px;"/>
+    <div class="form-group">
+      <label for="name">Full Name <span>*</span></label>
+      <input type="text" id="name" [(ngModel)]="name" name="name" required />
     </div>
 
     <!-- Email -->
-    <div class="form-group" style="margin-bottom: 15px;">
-      <label>Email:</label>
-      <input type="email" [(ngModel)]="email" name="email" required class="form-control" style="width: 100%; padding: 8px;"/>
+    <div class="form-group">
+      <label for="email">Email <span>*</span></label>
+      <input type="email" id="email" [(ngModel)]="email" name="email" required />
     </div>
 
     <!-- Password -->
-    <div class="form-group" style="margin-bottom: 15px;">
-      <label>Password:</label>
-      <input type="password" [(ngModel)]="password" name="password" required class="form-control" style="width: 100%; padding: 8px;"/>
+    <div class="form-group">
+      <label for="password">Password <span>*</span></label>
+      <input type="password" id="password" [(ngModel)]="password" name="password" required />
     </div>
 
     <!-- Phone -->
-    <div class="form-group" style="margin-bottom: 15px;">
-      <label>Phone:</label>
-      <input type="text" [(ngModel)]="phone" name="phone" class="form-control" style="width: 100%; padding: 8px;"/>
+    <div class="form-group">
+      <label for="phone">Phone</label>
+      <input type="text" id="phone" [(ngModel)]="phone" name="phone" />
     </div>
 
     <!-- Photo -->
-    <div class="form-group" style="margin-bottom: 15px;">
-      <label>Photo:</label>
-      <input type="file" (change)="onFileSelected($event)" class="form-control" style="width: 100%;"/>
+    <div class="form-group">
+      <label for="photo">Profile Photo</label>
+      <input type="file" id="photo" (change)="onFileSelected($event)" accept="image/*" />
     </div>
 
-    <!-- Submit Button -->
-    <div style="text-align: center;">
-      <button type="submit" [disabled]="!userForm.form.valid" style="padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 4px;">
-        Register
+    <!-- Button + Spinner -->
+    <div class="form-actions">
+      <button type="submit" [disabled]="loading || !userForm.form.valid">
+        <span *ngIf="!loading">Register</span>
+        <span *ngIf="loading" class="spinner"></span> <!-- ✅ spinner shown during loading -->
       </button>
     </div>
-
   </form>
 </div>

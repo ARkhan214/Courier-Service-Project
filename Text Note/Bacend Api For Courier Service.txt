@@ -1,0 +1,11 @@
+#######===>For User save<===#######
+POST http://localhost:3100/api/users/save
+
+		    (key)--------(value)---------------(Content type)
+form-data-----------name     : Md Rahim khan---------text/plain
+--------------------email    : mdrahim@gmail.cpm-----text/plain
+--------------------password : 12345-----------------text/plain
+--------------------photo    : (chose file)----------multipart/form-data
+
+######====>For Get<====######
+GRT http://localhost:3100/api/users/all

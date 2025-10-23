@@ -4,13 +4,17 @@ import { App } from './app/app';
 import { provideRouter, Routes } from '@angular/router';
 import { ConsumerProfile } from './app/consumer/consumer-profile/consumer-profile';
 import { ApplicationConfig } from '@angular/core';
+import { provideHttpClient } from '@angular/common/http';
 
-const routes:Routes = [
-  {path: 'cons', component:ConsumerProfile}
+const routes: Routes = [
+  { path: '', component: ConsumerProfile }
 ]
 
-export const appConfig:ApplicationConfig = {
-  providers:[provideRouter(routes)]
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideRouter(routes),
+    provideHttpClient()
+  ]
 };
 
 
