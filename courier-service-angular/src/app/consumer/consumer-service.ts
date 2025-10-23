@@ -8,12 +8,6 @@ import { Observable } from 'rxjs';
 })
 export class ConsumerService {
   
-private apiUrl = `${environment.apiUrl}/users`;
 
-  constructor(private http: HttpClient) {}
-
-  saveUser(formData: FormData): Observable<any> {
-    return this.http.post(`${this.apiUrl}/save`, formData);
-  }
 
 }
