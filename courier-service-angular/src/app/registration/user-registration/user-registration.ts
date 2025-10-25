@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';  // ✅ HttpClientModule
-import { UserService } from '../user-service';
+import { UserService } from '../../services/user-service';
 
 
 @Component({
@@ -17,7 +17,7 @@ name = '';
   password = '';
   phone = '';
   photo: File | null = null;
-  loading = false; // ✅ loading flag added
+  loading = false; // loading flag added
 
   constructor(private userService: UserService) { }
 
@@ -31,7 +31,7 @@ name = '';
       return;
     }
 
-    this.loading = true; // ✅ start loading
+    this.loading = true; // start loading
     const formData = new FormData();
     formData.append('name', this.name);
     formData.append('email', this.email);

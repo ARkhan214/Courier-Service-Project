@@ -9,20 +9,20 @@ const jwt = require('jsonwebtoken');
 
 
 
-// 🗝️ JWT Secret Key (you can store this in .env file)
+//  JWT Secret Key (you can store this in .env file)
 const JWT_SECRET = 'your_super_secret_key_here';
 
 
 
 
-// 🟢 Ensure upload directory exists
+//  Ensure upload directory exists
 const uploadDir = path.join(__dirname, '../uploads/user');
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
 
 
-// 🟢 Multer Storage Configuration
+//  Multer Storage Configuration
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, uploadDir); // Save to uploads/user
@@ -52,8 +52,8 @@ router.post('/save', upload.single('photo'), async (req, res) => {
     const userRole = 'CONSUMER';
     const photo = req.file ? `user/${req.file.filename}` : null;
 
-    // ✅ Encrypt the password
-    const hashedPassword =await bcrypt.hash(password, 19);
+    //  Encrypt the password
+    const hashedPassword =await bcrypt.hash(password, 10);
 
     const sql = 'INSERT INTO user (name, email, password, phone, role, photo, activeStatus) VALUES (?, ?, ?, ?, ?, ?, ?)';
     db.query(sql, [name, email, hashedPassword, phone, userRole, photo, activeStatus_value], (err, result) => {
@@ -67,7 +67,7 @@ router.post('/save', upload.single('photo'), async (req, res) => {
 
 
 
-// 🔵 READ
+//  READ
 router.get('/all', (req, res) => {
     const sql = 'SELECT * FROM user';
     db.query(sql, (err, results) => {
@@ -79,7 +79,7 @@ router.get('/all', (req, res) => {
 
 
 
-// 🟠 UPDATE
+// UPDATE
 router.put('/update/:id', upload.single('photo'), (req, res) => {
     const { name, email, password, phone } = req.body;
     const activeStatus_value = true;
@@ -95,7 +95,7 @@ router.put('/update/:id', upload.single('photo'), (req, res) => {
 });
 
 
-// 🔴 DELETE
+// DELETE
 router.delete('/delete/:id', (req, res) => {
   const { id } = req.params;
   const sql = 'DELETE FROM user WHERE id = ?';
@@ -109,7 +109,7 @@ router.delete('/delete/:id', (req, res) => {
 
 
 
-// 🔵 LOGIN USER
+// LOGIN USER
 router.post('/login', (req, res) => {
   const { email, password } = req.body;
 
@@ -120,13 +120,13 @@ router.post('/login', (req, res) => {
 
     const user = results[0];
 
-    // ✅ Compare password
+    //  Compare password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(401).send({ message: 'Invalid email or password' });
 
 
 
-     // ✅ Generate JWT Token
+     //  Generate JWT Token
     const token = jwt.sign(
       { id: user.id, email: user.email, role: user.role },
       JWT_SECRET,
@@ -155,7 +155,7 @@ router.post('/login', (req, res) => {
 
 
 
-// 🟢 Serve static files from uploads/user
+//  Serve static files from uploads/user
 router.use('/uploads/user', express.static(path.join(__dirname, '../uploads/user')));
 
 module.exports = router;

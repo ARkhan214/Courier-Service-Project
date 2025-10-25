@@ -7,14 +7,20 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
-  
-  private apiUrl = `${environment.apiUrl}/users`;
+
+  private apiUrl = `${environment.apiUrl}`;
 
   constructor(
     private http: HttpClient
-  ) {}
+  ) { }
 
   saveUser(formData: FormData): Observable<any> {
-    return this.http.post(`${this.apiUrl}/save`, formData);
+    return this.http.post(`${this.apiUrl}/api/users/save`, formData);
   }
+
+  //Diffrent style to write
+  //   saveUser(userData: any): Observable<any>{
+  //   return this.http.post<any>(this.apiUrl+"/api/users/save", userData);
+  // }
+  
 }
